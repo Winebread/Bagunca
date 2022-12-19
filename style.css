@@ -1,0 +1,55 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    max-width: 960px;
+    margin: auto;
+}
+
+
+main { 
+    display: grid;
+    grid-template-columns: 32% 68%;
+    margin-top: 3em;
+}
+
+header {
+    text-align: center;
+    margin: auto 2em;
+}
+
+hr {
+    border: none;
+    background-color: lightgray;
+    height: 1px;
+}
+
+
+/* detecta dark theme e light theme */
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: white;
+		color: #222;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #222;
+		color: #fff;
+	}
+}
+
+.light-mode {
+    background-color: white;
+    color: black;
+}
+
+/* botão para trocar light theme e dark theme manualmente */
+.button1 {
+    background-color: white;
+    border: none;
+    text-decoration: none;
+    font-family: 'Segoe UI';
+    margin: 1px 1px;
+    cursor: pointer;
+}

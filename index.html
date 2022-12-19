@@ -1,22 +1,119 @@
 <html>
 	<head>
 		<link href="style.css" rel="stylesheet">
-		<title>Your Name resume</title>
+		<title>Bagunça</title>
 	</head>
 
 	<body>
+
+		<canvas id="canvas" width="500" height="600"></canvas>
+		<input type="text" id="input-field">
+
+		<!--sBalloon script-->
+		<script>
+			const canvas = document.getElementById("canvas"); // canvas element
+			const inputField = document.getElementById("input-field"); // input field where the text will be added
+			const ctx = canvas.getContext("2d"); // canvas context
+
+			const balloonRadius = 25; // radius of the balloon
+			const balloonColor = "red"; // color of the balloon
+			const stringColor = "black"; // color of the string
+			const font = "20px Arial"; // font for the text
+			const textColor = "white"; // color of the text
+
+			// represents a party balloon with text inside
+			class Balloon {
+				constructor(x, y, text) {
+					this.x = x;
+					this.y = y;
+					this.text = text;
+				}
+
+				// draws the balloon on the canvas
+				draw() {
+					ctx.beginPath();
+					ctx.arc(this.x, this.y, balloonRadius, 0, Math.PI * 2);
+					ctx.fillStyle = balloonColor;
+					ctx.fill();
+					ctx.closePath();
+
+					ctx.beginPath();
+					ctx.moveTo(this.x, this.y + balloonRadius);
+					ctx.lineTo(this.x, this.y + balloonRadius + 50);
+					ctx.strokeStyle = stringColor;
+					ctx.stroke();
+					ctx.closePath();
+
+					ctx.font = font;
+					ctx.fillStyle = textColor;
+					ctx.textAlign = "center";
+					ctx.fillText(this.text, this.x, this.y + balloonRadius - 16);
+				}
+
+				// checks if the given point is inside the balloon
+				contains(x, y) {
+					return Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2) < balloonRadius;
+				}
+
+				
+			}
+
+			const balloons = []; // array of balloons
+
+			// creates some sample balloons with random text
+			for (let i = 0; i < 5; i++) {
+				balloons.push(
+					new Balloon(
+					Math.random() * (canvas.width - balloonRadius * 2) + balloonRadius,
+					Math.random() * (canvas.height - balloonRadius * 2) + balloonRadius,
+					"TEXTO"
+					)
+				);
+			}
+
+			// pops a balloon and adds its text to the input field
+			function popBalloon(event) {
+			const rect = canvas.getBoundingClientRect();
+			const x = event.clientX - rect.left;
+			const y = event.clientY - rect.top;
+
+			// find the balloon that was clicked
+			const balloon = balloons.find(b => b.contains(x, y));
+				if (balloon) {
+					inputField.value += balloon.text + " ";
+					balloons.splice(balloons.indexOf(balloon), 1);
+				}
+			}
+
+			// adds the popBalloon function as an event listener to the canvas
+			canvas.addEventListener("click", popBalloon);
+
+			// animates the balloons by redrawing them at regular intervals
+			function animate() {
+				requestAnimationFrame(animate);
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				balloons.forEach(b => b.draw());
+
+			}
+			
+				
+
+			animate();
+
+		</script>
+
+
+
 		<header id="header">
-			<!-- resume header with your name and title -->
 			<h1><b>Agora vai de</b> gratis</h1>
-			<hr>
-			De
-			<hr>
+			<hr>De</hr>
 		</header>
 		<main>
-			<article id="mainLeft">
+			<article>
 				<section>
-					<h2>C</h2>
-					<!-- contact info including social media -->
+
+					
+					
 				</section>
 			</article>
 		</main>
